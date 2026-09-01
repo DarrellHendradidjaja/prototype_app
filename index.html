@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="id">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>REWORK — Marketplace Fashion Berkelanjutan</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="nav"><a class="logo" href="#home">↻ <span>REWORK</span></a>
+<nav><a href="#home">Beranda</a><a href="#explore">Pengrajin</a><a href="#orders">Pesanan</a><a href="#education">Edukasi</a></nav>
+<div id="authArea"><button class="btn outline" onclick="openAuth()">Masuk / Daftar</button></div></header>
+<div id="toast"></div>
+<main>
+<section id="home" class="hero"><div><small class="eyebrow">FASHION • LOKAL • BERKELANJUTAN</small>
+<h1>Ubah pakaian lama menjadi <i>sesuatu yang baru.</i></h1>
+<p>Hubungkan konsumen dengan penjahit dan desainer lokal untuk merancang ulang pakaian yang sudah dimiliki.</p>
+<div class="actions"><button class="btn primary" onclick="go('explore')">Cari Pengrajin</button><button class="btn outline" onclick="go('how')">Cara Kerja</button></div>
+<div class="stats"><b>REUSE</b><span>perpanjang usia pakaian</span><b>LOKAL</b><span>dukung pengrajin</span><b>HEMAT</b><span>tidak harus beli baru</span></div></div>
+<div class="hero-art"><div class="cloth c1">👕</div><div class="cloth c2">👗</div><div class="hero-note">Pakaian lama<br><strong>→ desain baru</strong></div></div></section>
+
+<section id="how" class="band"><div class="heading"><div><small class="eyebrow">CARA KERJA</small><h2>Dari konsumen, kembali ke konsumen.</h2></div><p>Alur sederhana untuk mengubah pakaian lama menjadi pakaian yang kembali dipakai.</p></div>
+<div class="steps">
+<div><b>01</b><span>👕</span><h3>Punya pakaian lama</h3><p>Pilih pakaian yang ingin diubah.</p></div><div><b>02</b><span>🔎</span><h3>Pilih pengrajin</h3><p>Lihat portofolio, rating, gaya, dan harga.</p></div><div><b>03</b><span>💬</span><h3>Konsultasi</h3><p>Kirim foto dan jelaskan ide desain.</p></div><div><b>04</b><span>✓</span><h3>Pesan & bayar</h3><p>Setujui pesanan dan biaya.</p></div><div><b>05</b><span>🧵</span><h3>Dikerjakan</h3><p>Pantau progres pengerjaan.</p></div><div><b>06</b><span>📦</span><h3>Dikirim</h3><p>Hasil dikirim kembali.</p></div><div><b>07</b><span>★</span><h3>Pakai & review</h3><p>Terima, gunakan, lalu beri ulasan.</p></div></div></section>
+
+<section id="explore" class="section"><div class="heading"><div><small class="eyebrow">TEMUKAN TALENTA</small><h2>Penjahit & desainer lokal</h2></div><p>Pilih pengrajin yang paling sesuai dengan kebutuhanmu.</p></div>
+<div class="filters"><input id="search" placeholder="Cari nama, kota, atau spesialisasi..." oninput="loadMakers()"><select id="style" onchange="loadMakers()"><option value="">Semua gaya</option><option>Upcycle</option><option>Denim</option><option>Formal</option><option>Casual</option><option>Custom</option></select></div><div id="makers" class="cards"></div></section>
+
+<section id="orders" class="band"><div class="heading"><div><small class="eyebrow">PESANAN</small><h2 id="ordersTitle">Pesanan saya</h2></div><button id="dashboardBtn" class="btn outline hidden" onclick="go('dashboard')">Dashboard Pengrajin</button></div><div id="ordersList"><div class="empty">Silakan masuk untuk melihat pesanan.</div></div></section>
+
+<section id="dashboard" class="section hidden"><div class="heading"><div><small class="eyebrow">WORKSPACE</small><h2>Dashboard pengrajin</h2></div><button class="btn outline" onclick="loadMakerDashboard()">Refresh</button></div>
+<div id="dashboardStats" class="dashboard-stats"></div><div id="makerOrders"></div></section>
+
+<section id="education" class="section"><div class="heading"><div><small class="eyebrow">EDUKASI</small><h2>Fashion yang lebih bertanggung jawab.</h2></div></div>
+<div class="edu"><article><span>♻</span><h3>Reuse</h3><p>Memperpanjang masa pakai pakaian membantu mengurangi kebutuhan membeli barang baru.</p></article><article><span>✂</span><h3>Restyle</h3><p>Model lama dapat disesuaikan dengan kebutuhan dan selera baru.</p></article><article><span>♡</span><h3>Dukung lokal</h3><p>Pesanan dapat membuka peluang penghasilan bagi penjahit dan desainer lokal.</p></article></div></section>
+</main>
+<footer><div><strong>↻ REWORK</strong><p>Memperpanjang usia pakaian. Menghubungkan konsumen dengan talenta lokal.</p></div><div>© 2026 MVP</div></footer>
+
+<div id="authModal" class="modal hidden"><div class="dialog"><button class="x" onclick="closeModal('authModal')">×</button><h2 id="authTitle">Masuk</h2><p id="authHint">Gunakan email dan password.</p><input id="email" type="email" placeholder="Email"><input id="password" type="password" placeholder="Password (min. 6 karakter)"><input id="fullName" class="signupOnly hidden" placeholder="Nama lengkap"><select id="role" class="signupOnly hidden"><option value="customer">Saya konsumen</option><option value="maker">Saya penjahit/desainer</option></select><button class="btn primary wide" onclick="submitAuth()">Lanjut</button><button class="link" id="authSwitch" onclick="toggleAuthMode()">Belum punya akun? Daftar</button></div></div>
+<div id="makerModal" class="modal hidden"><div class="dialog large"><button class="x" onclick="closeModal('makerModal')">×</button><div id="makerDetail"></div></div></div>
+<div id="orderModal" class="modal hidden"><div class="dialog"><button class="x" onclick="closeModal('orderModal')">×</button><h2>Ajukan pesanan</h2><p id="orderMaker"></p><input id="service" placeholder="Jenis layanan, contoh: Restyle kemeja"><input id="budget" type="number" placeholder="Budget (Rp)"><textarea id="notes" placeholder="Jelaskan desain, ukuran, bahan tambahan, dll."></textarea><label class="upload">Foto pakaian <input id="garment" type="file" accept="image/*"></label><button class="btn primary wide" onclick="submitOrder()">Kirim pesanan</button></div></div>
+<div id="profileModal" class="modal hidden"><div class="dialog"><button class="x" onclick="closeModal('profileModal')">×</button><h2>Profil</h2><input id="profileName" placeholder="Nama"><input id="profileCity" placeholder="Kota"><button class="btn primary wide" onclick="saveProfile()">Simpan</button><button class="btn outline wide" onclick="signOut()">Keluar</button></div></div>
+<div id="chatModal" class="modal hidden"><div class="dialog large"><button class="x" onclick="closeModal('chatModal')">×</button><h2>Chat pesanan</h2><div id="chatMessages" class="chat"></div><div class="chat-send"><input id="chatInput" placeholder="Tulis pesan..."><button class="btn primary" onclick="sendMessage()">Kirim</button></div></div></div>
+<div id="reviewModal" class="modal hidden"><div class="dialog"><button class="x" onclick="closeModal('reviewModal')">×</button><h2>Beri review</h2><p id="reviewMaker"></p><select id="reviewRating"><option value="5">★★★★★ — Sangat puas</option><option value="4">★★★★☆ — Puas</option><option value="3">★★★☆☆ — Cukup</option><option value="2">★★☆☆☆ — Kurang</option><option value="1">★☆☆☆☆ — Sangat kurang</option></select><textarea id="reviewComment" placeholder="Ceritakan pengalamanmu..."></textarea><button class="btn primary wide" onclick="submitReview()">Kirim review</button></div></div>
+<script type="module" src="app.js"></script>
+</body></html>
